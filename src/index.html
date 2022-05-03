@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <title>Image search</title>
+  </head>
+  <body>
+    <div class="sticky-top">
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+        <button type="submit">
+          <span class="material-icons md-24">search</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+
+    <button type="button" class="load-more hidden" id="load-more">
+      <img src="./img/loading.gif" width="60" alt="loading" />
+    </button>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
