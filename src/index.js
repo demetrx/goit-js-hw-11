@@ -21,16 +21,22 @@ refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 window.addEventListener('scroll', throttle(makeInfScroll, 500));
 
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
 
   const value = e.currentTarget.elements.searchQuery.value;
 
   queryAPI.setSearchQuery(value);
-  queryAPI.fetchImgs().then(onSearchFinished).catch(onError);
+
+  try {
+    const data = await queryAPI.fetchImgs();
+    onSearchFinished(data);
+  } catch (error) {
+    onError(error);
+  }
 }
 
-function onLoadMore() {
+async function onLoadMore() {
   if (isEndReached) {
     return;
   }
@@ -43,7 +49,12 @@ function onLoadMore() {
     return;
   }
 
-  queryAPI.fetchImgs().then(onLoadMoreFinished).catch(onError);
+  try {
+    const data = await queryAPI.fetchImgs();
+    onLoadMoreFinished(data);
+  } catch (error) {
+    onError(error);
+  }
 }
 
 function onSearchFinished(data) {

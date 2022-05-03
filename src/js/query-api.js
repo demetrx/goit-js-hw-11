@@ -5,10 +5,10 @@ export default class QueryAPI {
   constructor() {
     this.#searchQuery = '';
     this.#page = 1;
-    this.perPage = 100;
+    this.perPage = 40;
   }
 
-  fetchImgs() {
+  async fetchImgs() {
     const BASE_URL = 'https://pixabay.com/api/';
     const API_KEY = '27133035-a58a151a38e3c6ba8d82de304';
     const params = new URLSearchParams({
@@ -24,7 +24,9 @@ export default class QueryAPI {
     const url = `${BASE_URL}?${params}`;
 
     this.#incrementPage();
-    return fetch(url).then(this.#onFetch);
+    const response = await fetch(url);
+    const data = await this.#onFetch(response);
+    return data;
   }
 
   getFetchedElsNum() {
